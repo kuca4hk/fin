@@ -1,0 +1,14 @@
+version: "3"
+services:
+  db:
+    image: "postgres:13.3"
+    environment:
+      - POSTGRES_USER=fin
+      - POSTGRES_PASSWORD=fin
+      - POSTGRES_DB=fin
+    volumes:
+      - finpg:/var/lib/postgresql/data
+    ports:
+      - "15432:5432"
+volumes:
+ finpg:

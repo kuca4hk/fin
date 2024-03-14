@@ -1,0 +1,8 @@
+dj-database-url==2.1.0
+Django==3.2.19
+django-debug-toolbar==4.3.0
+djangorestframework==3.11.2
+psycopg2-binary==2.9.9
+python-decouple==3.8
+drf-yasg2==1.19.4
+gunicorn==21.2.0
