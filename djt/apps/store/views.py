@@ -17,24 +17,29 @@ from rest_framework.decorators import (
 @permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_store_stats(request):
-    store = Store.objects.first()
-    serializer = StoreStatsSerializer(store, many=False)
-    return Response(serializer.data)
-
+    if request.user.is_superuser:
+        store = Store.objects.first()
+        serializer = StoreStatsSerializer(store, many=False)
+        return Response(serializer.data)
+    return Response('Unauthorized', status=401)
 
 @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_store_logs_buy(request):
-    trans_logs = TransactionLogBuy.objects.all()
-    serializer = TransactionLogBuySerializer(trans_logs, many=True)
-    return Response(serializer.data)
+    if request.user.is_superuser:
+        trans_logs = TransactionLogBuy.objects.all()
+        serializer = TransactionLogBuySerializer(trans_logs, many=True)
+        return Response(serializer.data)
+    return Response('Unauthorized', status=401)
 
 
 @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_store_logs_sell(request):
-    trans_logs = TransactionLogSell.objects.all()
-    serializer = TransactionLogSellSerializer(trans_logs, many=True)
-    return Response(serializer.data)
+    if request.user.is_superuser:
+        trans_logs = TransactionLogSell.objects.all()
+        serializer = TransactionLogSellSerializer(trans_logs, many=True)
+        return Response(serializer.data)
+    return Response('Unauthorized', status=401)
