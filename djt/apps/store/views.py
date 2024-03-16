@@ -1,13 +1,40 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
-from .models import Car, Store, TransactionLog
-from .serializer import StoreStatsSerializer
+from .models import Car, Store, TransactionLogSell, TransactionLogBuy
+from .serializer import StoreStatsSerializer, TransactionLogSellSerializer, TransactionLogBuySerializer
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import (
+    api_view,
+    authentication_classes,
+    permission_classes,
+)
 # Create your views here.
 
 
-class StoreStatsView(generics.RetrieveAPIView):
-    serializer_class = StoreStatsSerializer
+@authentication_classes([BasicAuthentication])
+@permission_classes([IsAuthenticated])
+@api_view(['GET'])
+def get_store_stats(request):
+    store = Store.objects.first()
+    serializer = StoreStatsSerializer(store, many=False)
+    return Response(serializer.data)
 
-    def get_object(self):
-        return Store.objects.first()
+
+@authentication_classes([BasicAuthentication])
+@permission_classes([IsAuthenticated])
+@api_view(['GET'])
+def get_store_logs_buy(request):
+    trans_logs = TransactionLogBuy.objects.all()
+    serializer = TransactionLogBuySerializer(trans_logs, many=True)
+    return Response(serializer.data)
+
+
+@authentication_classes([BasicAuthentication])
+@permission_classes([IsAuthenticated])
+@api_view(['GET'])
+def get_store_logs_sell(request):
+    trans_logs = TransactionLogSell.objects.all()
+    serializer = TransactionLogSellSerializer(trans_logs, many=True)
+    return Response(serializer.data)

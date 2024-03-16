@@ -12,6 +12,8 @@ class CustomUser(AbstractUser):
         ("customer", "Customer"),
     )
 
+    username = None
+    email = models.CharField(max_length=100, unique=True)
     first_name = models.CharField(max_length=100, blank=True, null=True)
     last_name = models.CharField(max_length=100, blank=True, null=True)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default="customer")

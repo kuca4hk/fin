@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Store, TransactionLog
+from .models import Store, TransactionLogSell, TransactionLogBuy
 
 # Register your models here.
 
@@ -7,7 +7,11 @@ from .models import Store, TransactionLog
 class StoreAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(TransactionLog)
-class TransactionLogAdmin(admin.ModelAdmin):
+@admin.register(TransactionLogBuy)
+class TransactionLogBuyAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(TransactionLogSell)
+class TransactionLogSellAdmin(admin.ModelAdmin):
     pass
 

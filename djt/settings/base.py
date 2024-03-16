@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     # Local apps
     "djt.apps.cars",
-    # "djt.apps.users",
+    "djt.apps.users",
     "djt.apps.store",
 
     # Django apps
@@ -54,11 +54,13 @@ INSTALLED_APPS = [
     # Third-party
     "rest_framework",
     "drf_yasg2",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -66,14 +68,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# REST_FRAMEWORK = {
-#     "DEFAULT_AUTHENTICATION_CLASSES": [
-#         "rest_framework.authentication.BasicAuthentication",
-#         "rest_framework.authentication.SessionAuthentication",
-#     ]
-# }
-#
-# AUTH_USER_MODEL = "users.CustomUser"
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ]
+}
+
+AUTH_USER_MODEL = "users.CustomUser"
 
 ROOT_URLCONF = 'djt.urls'
 
@@ -162,3 +164,19 @@ SWAGGER_SETTINGS = {
 }
 
 SWAGGER_URL = config("SWAGGER_URL", default=BASE_URL + "api/")
+
+CORS_ALLOWED_ORIGINS = config(
+    "CORS_ALLOWED_ORIGINS", default="", cast=lambda v: [s.strip() for s in v.split(",")]
+)
+CSRF_TRUSTED_ORIGINS = config(
+    "CSRF_TRUSTED_ORIGINS", default="", cast=lambda v: [s.strip() for s in v.split(",")]
+)
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
