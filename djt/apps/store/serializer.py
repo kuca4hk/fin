@@ -10,7 +10,6 @@ class StoreStatsSerializer(serializers.Serializer):
     total_money_spent = serializers.SerializerMethodField()
     total_money_store = serializers.SerializerMethodField()
 
-
     def get_total_cars_bought(self, obj):
         return TransactionLogBuy.objects.filter(action='buy').count()
 
@@ -27,15 +26,14 @@ class StoreStatsSerializer(serializers.Serializer):
         return Store.objects.first().money
 
 
-
 class TransactionLogBuySerializer(serializers.ModelSerializer):
 
     user = serializers.StringRelatedField(source='user.email')
     car = serializers.StringRelatedField()
+
     class Meta:
         model = TransactionLogBuy
         fields = ('car', 'user', 'action', 'timestamp')
-
 
     def get_car(self, obj):
         return f'{obj.car.brand}-{obj.car.model}'
@@ -44,6 +42,7 @@ class TransactionLogBuySerializer(serializers.ModelSerializer):
 class TransactionLogSellSerializer(serializers.ModelSerializer):
 
     user = serializers.StringRelatedField(source='user.email')
+
     class Meta:
         model = TransactionLogSell
         fields = ('car_brand', 'user', 'action', 'timestamp')

@@ -23,6 +23,7 @@ def get_store_stats(request):
         return Response(serializer.data)
     return Response('Unauthorized', status=401)
 
+
 @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
 @api_view(['GET'])

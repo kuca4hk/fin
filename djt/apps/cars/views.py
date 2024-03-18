@@ -12,9 +12,7 @@ from rest_framework.decorators import (
     authentication_classes,
     permission_classes,
 )
-from django.db import transaction
 
-# Create your views here.
 
 @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
@@ -24,6 +22,7 @@ def get_cars(request):
     serializer = CarSerializer(cars, many=True)
     return Response(serializer.data)
 
+
 @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
 @api_view(['GET'])
@@ -32,6 +31,7 @@ def get_cars_most_expensive(request):
     serializer = CarSerializer(cars, many=True)
     return Response(serializer.data)
 
+
 @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
 @api_view(['GET'])
@@ -39,6 +39,7 @@ def get_cars_oldest(request):
     cars = Car.objects.all().order_by('added_to_inventory')[:10]
     serializer = CarSerializer(cars, many=True)
     return Response(serializer.data)
+
 
 @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
@@ -55,6 +56,7 @@ def store_selling_car(request, pk):
         return Response('Car bought successfully')
     except Car.DoesNotExist:
         return Response('Car not found', status=404)
+
 
 @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
