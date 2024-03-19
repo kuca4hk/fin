@@ -58,7 +58,7 @@ dále je třeba mít vytvořeného druhého uživatele (který nebude mít práv
 ```
 python manage.py createsuperuser
 ```
-odeberte mu práva superusera v admin rozhraní djanga a v POSTAMNU při posilaní reqestu použitje jeho email a heslo a nastavte metodu přihlášení na Basic Auth.
+odeberte mu práva superusera v admin rozhraní djanga a v POSTMANU při posílání reqestu použijte jeho email a heslo a nastavte metodu přihlášení na Basic Auth.
 ## API - POST Nákup auta obchodem
 Pro nákup auta obchodem použijte následující odkaz:
 
@@ -69,12 +69,12 @@ Pro prodej auta obchodem použijte následující odkaz:
 
 http://127.0.0.1:8000/v1/api/cars/store-sell-car/<int:id>/
 
-## API - GET 10 Nejdražší auta
+## API - GET 10 Nejdražších aut
 Pro získání dat o deseti nejdražších autech použijte následující odkaz:
 
 http://127.0.0.1:8000/v1/api/cars/most-expensive/
 
-## API - GET 10 Nejstarší aut
+## API - GET 10 Nejstarších aut
 
 Pro získání dat o deseti nejstarších autech použijte následující odkaz:
 
