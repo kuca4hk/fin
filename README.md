@@ -48,7 +48,7 @@ Data jsem si nahrával přes POSTMANA, pomoci POST requestu ve formátu:
 ```json
 {
     "brand": "{nazev_znacky}",
-    "model": "{nazev_modelu}',
+    "model": "{nazev_modelu}",
     "price": {cena},
     "manufacturing_year": "{rok_vyroby}"
 }
