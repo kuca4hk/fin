@@ -104,7 +104,6 @@ WSGI_APPLICATION = 'djt.wsgi.application'
 DATABASES = {
     "default": dj_database_url.config(
         default=config("DATABASE_URL"),
-        ssl_require=config("DB_SSL_REQUIRE", default=True, cast=bool),
     )
 }
 
