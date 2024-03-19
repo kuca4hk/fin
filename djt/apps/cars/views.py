@@ -1,6 +1,6 @@
 from rest_framework import generics
 from .models import Car
-from ..store.models import Store, TransactionLogBuy, TransactionLogSell
+from ..store.models import Store, TransactionLog
 from .serializer import CarSerializer
 from django.db.models import F
 from rest_framework.decorators import api_view
@@ -12,6 +12,7 @@ from rest_framework.decorators import (
     authentication_classes,
     permission_classes,
 )
+import json
 
 
 @authentication_classes([BasicAuthentication])
@@ -47,10 +48,18 @@ def get_cars_oldest(request):
 def store_selling_car(request, pk):
     try:
         car = Car.objects.get(id=pk)
-        car_model = car.model
-        car_brand = car.brand
-        car_price = car.price
-        TransactionLogSell.objects.create(car_model=car_model, car_brand=car_brand, car_price=car_price, user=request.user)
+        deleted_car = {
+            'model': car.model,
+            'brand': car.brand,
+            'price': str(car.price),
+            'manufacturing_year': car.manufacturing_year,
+        }
+        TransactionLog.objects.create(
+            user=request.user,
+            action='sell',
+            deleted_car=json.dumps(deleted_car),
+            deleted_car_price=car.price
+        )
         Store.objects.all().update(money=F('money') + car.price)
         car.delete()
         return Response('Car bought successfully')
@@ -62,12 +71,14 @@ def store_selling_car(request, pk):
 @permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def store_buy_car(request):
+    if Store.objects.first() is None:
+        return Response('The Store doesnt exist', status=404)
     serializer = CarSerializer(data=request.data)
     if serializer.is_valid():
         if request.data['price'] - Store.objects.first().money > 0:
             return Response('Not enough money in the store', status=400)
         car = serializer.save()
         Store.objects.all().update(money=F('money') - car.price)
-        TransactionLogBuy.objects.create(car=car, user=request.user)
+        TransactionLog.objects.create(car=car, user=request.user, action='buy')
         return Response(serializer.data, status=201)
     return Response(serializer.errors)
