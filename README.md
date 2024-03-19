@@ -42,9 +42,9 @@ Jako první je potřeba vytvořit superusera, pomocí následujícího příkazu
 ```
 python manage.py createsuperuser
 ```
-Dále je potřeba vytvořit store, v adminu.
+Dále je potřeba vytvořit store, přes admin rozhraní djanga.
 
-Data jsem si nahrával přes POSTMANA, pomoci POST requestu ve formátu:
+Data jsem nahrál přes POSTMAN, pomocí POST requestu ve formátu:
 ```json
 {
     "brand": "{nazev_znacky}",
@@ -54,12 +54,11 @@ Data jsem si nahrával přes POSTMANA, pomoci POST requestu ve formátu:
 }
 
 ```
-je potřeba mít vytvořeného druhého uživatele(který nebude mít práva superuser, je potřeba pro správný testing endpointu se statistikama a logováním) , vytvoříte si ho pomoci příkazu:
+dále je třeba mít vytvořeného druhého uživatele (který nebude mít práva superuser) pro správné testování endpointu se statistikami a logováním. Vytvořte ho pomocí příkazu:
 ```
 python manage.py createsuperuser
 ```
-a následně použít v POSTMANU autentizaci BASIC_AUTH.
-
+odeberte mu práva superusera v admin rozhraní djanga a v POSTAMNU při posilaní reqestu použitje jeho email a heslo a nastavte metodu přihlášení na Basic Auth.
 ## API - POST Nákup auta obchodem
 Pro nákup auta obchodem použijte následující odkaz:
 
@@ -71,13 +70,13 @@ Pro prodej auta obchodem použijte následující odkaz:
 http://127.0.0.1:8000/v1/api/cars/store-sell-car/<int:id>/
 
 ## API - GET 10 Nejdražší auta
-Pro získání dat o 10 nejdrazších autech použijte následující odkaz:
+Pro získání dat o deseti nejdražších autech použijte následující odkaz:
 
 http://127.0.0.1:8000/v1/api/cars/most-expensive/
 
 ## API - GET 10 Nejstarší aut
 
-Pro získání dat o 10 nejstarších autech použijte následující odkaz:
+Pro získání dat o deseti nejstarších autech použijte následující odkaz:
 
 http://127.0.0.1:8000/v1/api/cars/oldest/
 
