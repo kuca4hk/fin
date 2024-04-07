@@ -41,7 +41,7 @@ jobs:
   deploy_to_develop:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.event.pull_request.base.ref == 'develop'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
