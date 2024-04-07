@@ -3,7 +3,7 @@ name: Develop CI/CD
 on:
   push:
     branches:
-      - '*'
+      - 'develop'
   pull_request:
     types: [closed]
 

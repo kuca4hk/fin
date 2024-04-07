@@ -1,9 +1,9 @@
-name: Develop CI/CD
+name: Production CI/CD
 
 on:
   push:
     branches:
-      - '*'
+      - 'master'
   pull_request:
     types: [closed]
 
