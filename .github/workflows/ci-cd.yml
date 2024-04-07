@@ -19,6 +19,7 @@ jobs:
           echo "Linting code"
 
   deploy_to_develop:
+    needs: lint
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'develop'
     steps:
@@ -29,6 +30,7 @@ jobs:
           echo "Deployment script for develop"
 
   deploy_to_master:
+    needs: lint
     runs-on: ubuntu-latest
     if: (github.event_name == 'pull_request' && github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master') || (github.event_name == 'push' && github.ref == 'refs/heads/master')
     steps:
