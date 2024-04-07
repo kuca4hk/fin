@@ -1,0 +1,27 @@
+name: Branches CI/CD
+on:
+  push:
+    branches-ignore:
+      - 'master'
+      - 'develop'
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Lint code
+        run: |
+          echo "Linting code"
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Test code
+        run: |
+          echo "Testing code"
+
