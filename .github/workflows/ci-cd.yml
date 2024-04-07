@@ -1,0 +1,44 @@
+name: CI/CD
+
+on:
+  push:
+    branches-ignore:
+      - master
+      - develop
+    branches:
+      - '*'
+
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Lint code
+        run: |
+          echo "Linting code"
+
+  deploy_to_develop:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'develop'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Deploy to Develop
+        run: |
+          echo "Deployment script for develop"
+
+  deploy_to_master:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Deploy to Master
+        run: |
+          echo "Deployment script for master"
