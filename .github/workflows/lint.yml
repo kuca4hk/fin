@@ -19,4 +19,4 @@ jobs:
             pip install flake8
         - name: Lint
           run: |
-            flake8 /djt
+            flake8 djt/
