@@ -1,0 +1,16 @@
+name: Main Workflow
+
+on:
+  push:
+    branches:
+      - master # Spustí se pouze při pull requestech sloučených do master větve
+
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Run lint
+        uses: ./lint.yml
