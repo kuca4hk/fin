@@ -17,6 +17,26 @@ jobs:
       - name: Lint code
         run: |
           echo "Linting code"
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Test code
+        run: |
+          echo "Testing code"
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build code
+        run: |
+          echo "Building code"
 
   deploy_to_production:
     needs: lint
