@@ -3,9 +3,6 @@ name: New Branche CI/CD
 
 on:
   push:
-    paths-ignore:
-      - '.github/workflows/production.yml' # Ignorovat změny v hlavním workflow souboru
-      - '.github/workflows/develop.yml' # Ignorovat změny v hlavním workflow souboru
     branches:
       - '*'
 
