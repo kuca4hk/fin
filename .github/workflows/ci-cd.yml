@@ -2,15 +2,10 @@ name: CI/CD
 
 on:
   push:
-    branches-ignore:
-      - master
-      - develop
     branches:
       - '*'
-
   pull_request:
-    types:
-      - closed
+    types: [closed]
 
 jobs:
   lint:
