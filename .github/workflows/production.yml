@@ -46,3 +46,20 @@ jobs:
       - name: Deploy to Master
         run: |
           echo "Deployment script for master"
+
+    #  deploy:
+    #    if: github.ref == 'refs/heads/master'
+    #    runs-on: [ ubuntu-latest ]
+    #    steps:
+    #      - uses: actions/checkout@v1
+    #      - name: Push to server
+    #        uses: appleboy/ssh-action@master
+    #        with:
+    #          host: YOUR_SERVER_IP
+    #          username: USER_NAME
+    #          password: PASSWORD
+    #          script: |
+    #            cd YOUR_PROJECT
+    #            git pull
+    #            docker-compose down
+    #            docker-compose up -d
